@@ -26,7 +26,7 @@ def classifier_output(x, params):
     """
     W,b = params
     # YOUR CODE HERE.
-    probs = np.dot(W, x) + b
+    probs = np.dot(x, W) + b
    # raise NotImplementedError
     return probs
 
