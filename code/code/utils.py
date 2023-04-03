@@ -10,6 +10,9 @@ if not path.exists(TRAIN_PATH):
 DEV_PATH = path.join(DATA_PATH, "dev")
 if not path.exists(DEV_PATH):
     RuntimeError("dev not exists")
+TEST_PATH = path.join(DATA_PATH, "test")
+if not path.exists(TEST_PATH):
+    RuntimeError("test not exists")
 
 def read_data(fname):
     data = []
@@ -24,6 +27,7 @@ def text_to_bigrams(text):
 
 TRAIN = [(l,text_to_bigrams(t)) for l,t in read_data(TRAIN_PATH)]
 DEV   = [(l,text_to_bigrams(t)) for l,t in read_data(DEV_PATH)]
+TEST  = [(text_to_bigrams(t)) for _,t in read_data(TEST_PATH)]
 
 from collections import Counter
 fc = Counter()

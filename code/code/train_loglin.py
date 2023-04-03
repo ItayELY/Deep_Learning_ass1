@@ -6,8 +6,8 @@ import os
 
 STUDENT={'name': 'YOUR NAME',
          'ID': 'YOUR ID NUMBER'}
-ITERATIONS = 30
-L_RATE = 0.01
+ITERATIONS = 50
+L_RATE = 0.001
 
 
 def feats_to_vec(features):
@@ -20,10 +20,6 @@ def feats_to_vec(features):
 def accuracy_on_dataset(dataset, params):
     good = bad = 0.0
     for label, features in dataset:
-        # YOUR CODE HERE
-        # Compute the accuracy (a scalar) of the current parameters
-        # on the dataset.
-        # accuracy is (correct_predictions / all_predictions)
         if u.L2I[label] == ll.predict(feats_to_vec(features), params):
             good += 1
         else:
@@ -49,10 +45,6 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
             y = u.L2I[label]                  # convert the label to number if needed.
             loss, grads = ll.loss_and_gradients(x,y,params)
             cum_loss += loss
-            # YOUR CODE HERE
-            # update the parameters according to the gradients
-            # and the learning rate.
-            #print(grads)
             W = W - learning_rate * grads[0]
             b = b - learning_rate * grads[1]
             params = [W, b]
@@ -70,4 +62,14 @@ if __name__ == '__main__':
     # print(len(u.L2I))
     params = ll.create_classifier(u.TOP_K, len(u.L2I))
     trained_params = train_classifier(u.TRAIN, u.DEV, ITERATIONS, L_RATE, params)
-
+    print("***** TESTING ******")
+    test_data = u.TEST
+    I2F = {v: k for k, v in u.L2I.items()}
+    test_output = []
+    with open("./test.pred", "w") as test_file:
+        for s in test_data:
+            l = I2F[
+                ll.predict(feats_to_vec(s), trained_params)
+            ]
+            test_output.append(l)
+        test_file.writelines("\n".join(test_output))
