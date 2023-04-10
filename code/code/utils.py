@@ -3,7 +3,7 @@
 import random
 from os import path
 
-DATA_PATH = "C:/Users/hagsh/OneDrive/Desktop/לימודים/שנה ג/ב - שיטות דיפ לטקסטים/Assignment1/Deep_Learning_ass1/code/data/"
+DATA_PATH = "C:/Users/vital_000/PycharmProjects/Deep_Learning_ass1/code/data/"
 TRAIN_PATH = path.join(DATA_PATH, "train")
 if not path.exists(TRAIN_PATH):
     RuntimeError("train not exists")
@@ -18,7 +18,8 @@ def read_data(fname):
     data = []
     with open(fname, encoding="utf8") as file:
         for line in file:
-            label, text = line.strip().lower().split("\t",1)
+            line2 = line.strip().lower().split("\t", 1)
+            label, text = line.strip().lower().split("\t", 1)
             data.append((label, text))
     return data
 

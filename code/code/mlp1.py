@@ -1,5 +1,5 @@
 import numpy as np
-from numba import cuda, jit
+#from numba import cuda, jit
 from loglinear import softmax
 STUDENT={'name': 'YOUR NAME',
          'ID': 'YOUR ID NUMBER'}
@@ -20,7 +20,7 @@ def predict(x, params):
     return np.argmax(classifier_output(x, params))
 
 
-@jit(target_backend='cuda', forceobj=True)
+#@jit(target_backend='cuda', forceobj=True)
 def loss_and_gradients(x, y, params):
     # FORWARD
     W, b, U, b_tag = params
