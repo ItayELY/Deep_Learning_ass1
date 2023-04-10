@@ -31,7 +31,7 @@ def loss_and_gradients(x, y, params):
     probs = np.dot(l1, U) + b_tag
     
     softmax_x = softmax(probs)# + cost_reg
-    loss = -np.log(softmax_x[y])
+    loss = -np.log(softmax_x[y]) # TODO: fix?
     
     y_arr = np.zeros(softmax_x.shape)
     y_arr[y] = 1
