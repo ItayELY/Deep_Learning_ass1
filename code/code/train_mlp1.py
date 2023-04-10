@@ -3,14 +3,16 @@ import random
 import numpy as np
 import utils as u
 import os
+import sys
+
 
 STUDENT={'name': 'YOUR NAME',
          'ID': 'YOUR ID NUMBER'}
-HIDDEN_LAYER = 1200
-ITERATIONS = 10
+HIDDEN_LAYER = 36
+ITERATIONS = 50
 L_RATE = 0.001
 LAMBDA = 0.2
-
+PRINT_ACC = 4
 
 def feats_to_vec(features):
     vec = np.zeros(u.TOP_K)
@@ -28,16 +30,9 @@ def accuracy_on_dataset(dataset, params):
             bad += 1
     return good / (good + bad)
 
-def train_classifier(train_data, dev_data, num_iterations, learning_rate, params):
-    """
-    Create and train a classifier, and return the parameters.
 
-    train_data: a list of (label, feature) pairs.
-    dev_data  : a list of (label, feature) pairs.
-    num_iterations: the maximal number of training iterations.
-    learning_rate: the learning rate to use.
-    params: list of parameters (initial values)
-    """
+@mlp.jit(target_backend='cuda', forceobj=True)
+def train_classifier(train_data, dev_data, num_iterations, learning_rate, params):
     W, b, U, b_tag = params
     for I in range(num_iterations):
         cum_loss = 0.0 # total loss in this iteration.
@@ -56,16 +51,27 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
         train_loss = cum_loss / len(train_data)
         train_accuracy = accuracy_on_dataset(train_data, params)
         dev_accuracy = accuracy_on_dataset(dev_data, params)
-        print(I, train_loss, train_accuracy, dev_accuracy)
+        print(I, 
+              np.round(train_loss, PRINT_ACC), 
+              np.round(train_accuracy, PRINT_ACC),
+              np.round(dev_accuracy, PRINT_ACC), 
+              np.round(train_accuracy-dev_accuracy, PRINT_ACC),
+              "\t", 
+              np.round(np.max(W), 5),
+              np.round(np.min(W), 5),
+              np.round(np.max(U), 5),
+              np.round(np.min(U), 5))
     return params
 
 if __name__ == '__main__':
     # YOUR CODE HERE
     # write code to load the train and dev sets, set up whatever you need,
     # and call train_classifier.
+    
     data = u.read_data(u.TRAIN_PATH)
     # print(len(u.L2I))
-    params = mlp.create_classifier(u.TOP_K, HIDDEN_LAYER, len(u.L2I))
+    params = mlp.create_classifier(u.TOP_K, HIDDEN_LAYER, len(u.L2I), reg=5)
+    print("i", "t_lss ", "t_acc ", "d_acc ", "delta", "\t", "Wmx   ", "Wmn   ", "Umx   ", "Umn   ")
     trained_params = train_classifier(u.TRAIN, u.DEV, ITERATIONS, L_RATE, params)
     print("***** TESTING ******")
     test_data = u.TEST

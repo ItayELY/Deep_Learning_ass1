@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "name": "Python: File",
+            "type": "python",
+            "request": "launch",
+            "program": "C:/Users/hagsh/OneDrive/Desktop/לימודים/שנה ג/ב - שיטות דיפ לטקסטים/Assignment1/Deep_Learning_ass1/code/code/train_mlp1.py",
+            "justMyCode": true
+        }
+    ]
+}
