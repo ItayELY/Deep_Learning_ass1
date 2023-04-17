@@ -1,5 +1,5 @@
 import numpy as np
-#from numba import cuda, jit
+#from cupy import cuda, jit
 from loglinear import softmax
 STUDENT={'name': 'YOUR NAME',
          'ID': 'YOUR ID NUMBER'}
@@ -25,6 +25,7 @@ def loss_and_gradients(x, y, params):
     # FORWARD
     W, b, U, b_tag = params
     l1 = np.dot(np.array(x), W) + b
+    l2 = np.tanh(l1)
     l1 = np.tanh(l1)
     
     cost_reg = (np.sum(U ** 2))*(LAMBDA/2)
@@ -54,15 +55,15 @@ def loss_and_gradients(x, y, params):
     
     return loss,[gW, gb, gU, gbtag]
 
-def create_classifier(in_dim, hid_dim, out_dim, reg=0):
+def create_classifier(in_dim, hid_dim, out_dim, reg=0, divide=0):
     global LAMBDA
     LAMBDA = reg
     global IN_DIM
     IN_DIM = in_dim
     
-    W = np.random.randn(in_dim, hid_dim) / 1000
-    b = np.random.randn(hid_dim) / 1000
-    U = np.random.randn(hid_dim, out_dim) / 1000
-    b_tag = np.zeros(out_dim)
+    W = np.random.randn(in_dim, hid_dim) / divide
+    b = np.random.randn(hid_dim) / divide
+    U = np.random.randn(hid_dim, out_dim) / divide
+    b_tag = np.zeros(out_dim) / divide
     return [W, b, U, b_tag]
 

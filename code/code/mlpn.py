@@ -1,13 +1,13 @@
 from typing import List
 import numpy as np
-from numba import cuda, jit
+#from numba import cuda, jit
 from loglinear import softmax
 
 STUDENT={'name': 'YOUR NAME',
          'ID': 'YOUR ID NUMBER'}
 
 
-@jit(target_backend='cuda', forceobj=True)
+#@jit(target_backend='cuda', forceobj=True)
 def classifier_output(x, params: List[np.ndarray]):
     Ws = params[::2]
     bs = params[1:][::2]
@@ -17,11 +17,11 @@ def classifier_output(x, params: List[np.ndarray]):
         probs = np.tanh(probs)
     return probs
 
-@jit(target_backend='cuda', forceobj=True)
+#@jit(target_backend='cuda', forceobj=True)
 def predict(x, params):
     return np.argmax(classifier_output(x, params))
 
-@jit(target_backend='cuda', forceobj=True)
+#@jit(target_backend='cuda', forceobj=True)
 def loss_and_gradients(x, y, params: List[np.ndarray]):
     """
     params: a list as created by create_classifier(...)
