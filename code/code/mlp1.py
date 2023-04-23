@@ -1,8 +1,8 @@
 import numpy as np
 #from cupy import cuda, jit
 from loglinear import softmax
-STUDENT={'name': 'YOUR NAME',
-         'ID': 'YOUR ID NUMBER'}
+STUDENT={'name': 'Itay',
+         'ID': '208390559_'}
 # HIDDEN_SIZE = 0
 HIDDEN_MASK = np.array([])
 IN_DIM = 0
@@ -28,19 +28,17 @@ def loss_and_gradients(x, y, params):
     l2 = np.tanh(l1)
     l1 = np.tanh(l1)
     
-    cost_reg = (np.sum(U ** 2))*(LAMBDA/2)
     probs = np.dot(l1, U) + b_tag
     
-    softmax_x = softmax(probs)# + cost_reg
-    loss = -np.log(softmax_x[y]) # TODO: fix?
+    softmax_x = softmax(probs)
+    loss = -np.log(softmax_x[y])
     
     y_arr = np.zeros(softmax_x.shape)
     y_arr[y] = 1
     diff = softmax_x - y_arr
     
     # BACKWARD
-    U_reg = LAMBDA * (U)
-    gU = np.outer(l1, diff) #+ U_reg
+    gU = np.outer(l1, diff)
     gbtag = diff
     
     d_l1 = 1 - np.power(
@@ -55,7 +53,7 @@ def loss_and_gradients(x, y, params):
     
     return loss,[gW, gb, gU, gbtag]
 
-def create_classifier(in_dim, hid_dim, out_dim, reg=0, divide=0):
+def create_classifier(in_dim, hid_dim, out_dim, reg=0, divide=1):
     global LAMBDA
     LAMBDA = reg
     global IN_DIM

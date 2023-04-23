@@ -1,8 +1,7 @@
 import numpy as np
 
-
-STUDENT={'name': 'YOUR NAME',
-         'ID': 'YOUR ID NUMBER'}
+STUDENT={'name': 'Itay',
+         'ID': '208390559_'}
 
 def softmax(x):
     x = np.exp(x - np.max(x))/np.exp(x - np.max(x)).sum()

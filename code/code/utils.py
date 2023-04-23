@@ -3,7 +3,9 @@
 import random
 from os import path
 
-DATA_PATH = "C:/Users/vital_000/PycharmProjects/Deep_Learning_ass1/code/data/"
+ELYASHIV_PATH = "C:/Users/vital_000/PycharmProjects/Deep_Learning_ass1/code/data/"
+LAVI_PATH = "../data"
+DATA_PATH = LAVI_PATH
 TRAIN_PATH = path.join(DATA_PATH, "train")
 if not path.exists(TRAIN_PATH):
     RuntimeError("train not exists")
@@ -35,12 +37,28 @@ fc = Counter()
 for l,feats in TRAIN:
     fc.update(feats)
 
-# 600 most common bigrams in the training set.
+## 600 most common bigrams in the training set.
 TOP_K = 600
 vocab = set([x for x,c in fc.most_common(TOP_K)])
 
-# label strings to IDs
+## label strings to IDs
 L2I = {l:i for i,l in enumerate(list(sorted(set([l for l,t in TRAIN]))))}
-# feature strings (bigrams) to IDs
+## feature strings (bigrams) to IDs
 F2I = {f:i for i,f in enumerate(list(sorted(vocab)))}
 
+# UNIGRAMS
+def text_to_unigrams(text):
+    return list(text)
+
+TRAIN_UNI = [(l,text_to_unigrams(t)) for l,t in read_data(TRAIN_PATH)]
+DEV_UNI   = [(l,text_to_unigrams(t)) for l,t in read_data(DEV_PATH)]
+fc_uni = Counter()
+for l,feats in TRAIN_UNI:
+    fc_uni.update(feats)
+
+vocab_uni = set([x for x,c in fc_uni.most_common(TOP_K)])
+
+# label strings to IDs
+L2I_UNI = {l:i for i,l in enumerate(list(sorted(set([l for l,t in TRAIN_UNI]))))}
+# feature strings (unigrams) to IDs
+F2I_UNI = {f:i for i,f in enumerate(list(sorted(vocab_uni)))}
