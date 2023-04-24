@@ -1,0 +1,14 @@
+5 – 1. 
+Yes. But the difference in accuracy is not too high:
+            Log-linear		MLP1
+Training	99.9%			99.5%
+Validation	85%             86.6%
+
+5 – 2. 
+Results:
+		    Log-linear		MLP1
+Training	78%			    82.8%
+Validation	70%			    68%
+
+5 – 3.
+It can. It took about 20 iterations to correctly solve the problem.

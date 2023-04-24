@@ -61,8 +61,8 @@ def create_classifier(in_dim, hid_dim, out_dim, reg=0, divide=1):
     IN_DIM = in_dim
     
     W = np.random.randn(in_dim, hid_dim) / divide
-    b = np.random.randn(hid_dim) / divide
+    b = np.random.randn(hid_dim) - 2
     U = np.random.randn(hid_dim, out_dim) / divide
-    b_tag = np.zeros(out_dim) / divide
+    b_tag = np.zeros(out_dim)
     return [W, b, U, b_tag]
 

@@ -110,7 +110,7 @@ def create_classifier(dims):
     # print(dims)
     params = []
     for prv, nxt in zip(dims, dims[1:]):
-        params.append(np.random.rand(prv, nxt) -0.5)
+        params.append(np.random.rand(prv, nxt) - 0.4)
         params.append(np.random.rand(nxt)) # changed prv to nxt
     # print("params:")
     # [print(" ", u.shape, u.max(), u.min()) for u in params]
