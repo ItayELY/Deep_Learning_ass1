@@ -3,8 +3,8 @@ import numpy as np
 #from numba import cuda, jit
 from loglinear import softmax
 
-STUDENT={'name': 'YOUR NAME',
-         'ID': 'YOUR ID NUMBER'}
+STUDENT={'name': 'Itay',
+         'ID': '212356364_208390559'}
 
 
 #@jit(target_backend='cuda', forceobj=True)
@@ -107,12 +107,12 @@ def create_classifier(dims):
     to first layer, then the second two are the matrix and vector from first to
     second layer, and so on.
     """
-    print(dims)
+    # print(dims)
     params = []
     for prv, nxt in zip(dims, dims[1:]):
         params.append(np.random.rand(prv, nxt) -0.5)
         params.append(np.random.rand(nxt)) # changed prv to nxt
-    print("params:")
-    [print(" ", u.shape, u.max(), u.min()) for u in params]
+    # print("params:")
+    # [print(" ", u.shape, u.max(), u.min()) for u in params]
     return params
 

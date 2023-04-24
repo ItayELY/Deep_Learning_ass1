@@ -5,7 +5,7 @@ import utils as u
 import sys
 
 STUDENT={'name': 'Itay',
-         'ID': '208390559_'}
+         'ID': '212356364_208390559'}
 ITERATIONS = 50
 L_RATE = 0.01
 L2I = {}
@@ -53,6 +53,7 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
         train_loss = cum_loss / len(train_data)
         train_accuracy = accuracy_on_dataset(train_data, params)
         dev_accuracy = accuracy_on_dataset(dev_data, params)
+        # learning_rate = 0.99 * learning_rate
         print(I, train_loss, train_accuracy, dev_accuracy)
     return params
 
@@ -68,7 +69,7 @@ if __name__ == '__main__':
     # print(F2I)
     params = ll.create_classifier(u.TOP_K, len(u.L2I))
     trained_params = train_classifier(u.TRAIN, u.DEV, ITERATIONS, L_RATE, params)
-    print(" - Testing")
+    print("*** Testing ***")
     test_data = u.TEST
     I2F = {v: k for k, v in u.L2I.items()}
     test_output = []

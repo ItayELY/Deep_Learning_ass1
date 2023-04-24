@@ -1,8 +1,9 @@
 import numpy as np
 #from cupy import cuda, jit
 from loglinear import softmax
+
 STUDENT={'name': 'Itay',
-         'ID': '208390559_'}
+         'ID': '212356364_208390559'}
 # HIDDEN_SIZE = 0
 HIDDEN_MASK = np.array([])
 IN_DIM = 0

@@ -13,9 +13,9 @@ import numpy as np
 import utils as u
 import os
 
-
 STUDENT={'name': 'Itay',
-         'ID': '208390559_'}
+         'ID': '212356364_208390559'}
+
 HIDDEN_LAYER = 72
 ITERATIONS = 50
 L_RATE = 0.001
@@ -85,17 +85,17 @@ if __name__ == '__main__':
         
         trained_params = train_classifier(u.TRAIN, u.DEV, ITERATIONS, L_RATE, params)
         
-        print("*** - TESTING ***")
-        test_data = u.TEST
-        I2F = {v: k for k, v in L2I.items()}
-        test_output = []
-        with open("./test.pred", "w") as test_file:
-            for s in test_data:
-                l = I2F[
-                    mlp.predict(feats_to_vec(s), trained_params)
-                ]
-                test_output.append(l)
-            test_file.writelines("\n".join(test_output))
+        # print("*** - TESTING ***")
+        # test_data = u.TEST
+        # I2F = {v: k for k, v in L2I.items()}
+        # test_output = []
+        # with open("./test.pred", "w") as test_file:
+        #     for s in test_data:
+        #         l = I2F[
+        #             mlp.predict(feats_to_vec(s), trained_params)
+        #         ]
+        #         test_output.append(l)
+        #     test_file.writelines("\n".join(test_output))
         
     if unigram:
         print("*** Training unigram mlp1. ***")
